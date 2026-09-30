@@ -1,5 +1,9 @@
 <article class="group card overflow-hidden" style="animation-delay: 0ms">
-  <a [routerLink]="['/blog/blog-details', Posts.id]" class="block" data-discover="true"
+  <a
+    [routerLink]="['/blog/blog-details']"
+    [queryParams]="{ id: Posts.id }"
+    class="block"
+    data-discover="true"
     ><div class="relative h-52 overflow-hidden">
       <img
         [alt]="Posts.title"
