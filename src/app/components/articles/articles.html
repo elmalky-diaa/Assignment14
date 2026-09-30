@@ -1,0 +1,192 @@
+<main class="grow pt-20">
+  <div class="min-h-screen bg-[#0a0a0a]">
+    <div class="relative py-20 overflow-hidden">
+      <div class="absolute inset-0 bg-[#0a0a0a]"></div>
+      <div
+        class="absolute inset-0 bg-[linear-gradient(rgba(38,38,38,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(38,38,38,0.5)_1px,transparent_1px)] bg-size-[60px_60px]"
+      ></div>
+      <div class="absolute inset-0">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
+        <div
+          class="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl"
+        ></div>
+      </div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <app-title-main>
+          <span class="text-sm font-medium text-neutral-300">مدونتنا</span>
+        </app-title-main>
+        <app-section-title> استكشف مقالاتنا</app-section-title>
+        <app-section-subtitle>
+          اكتشف الدروس والرؤى وأفضل الممارسات للتطوير الحديث
+        </app-section-subtitle>
+      </div>
+    </div>
+    <div class="sticky top-20 z-40 bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-[#262626]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div class="relative w-full md:w-80">
+            <input
+              [(ngModel)]="searchText"
+              placeholder="ابحث في المقالات..."
+              class="input-dark w-full px-5 py-3 pr-12"
+              type="text"
+              value=""
+            /><svg
+              class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+          </div>
+
+          <div class="text-white"></div>
+
+          <div class="flex flex-wrap justify-center gap-2">
+            <button
+              (click)="selectedCategory = ''"
+              class="px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300"
+              [class]="
+                selectedCategory === ''
+                  ? 'bg-linear-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/20 scale-105 border-transparent'
+                  : 'bg-[#161616] text-neutral-400 border border-[#262626] hover:text-white hover:border-neutral-500 hover:scale-102'
+              "
+            >
+              جميع المقالات
+            </button>
+            @for (category of allcategory; track $index) {
+              <button
+                (click)="selectedCategory = category.name"
+                class="px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300"
+                [class]="
+                  selectedCategory === category.name
+                    ? 'bg-linear-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/20 scale-105 border-transparent'
+                    : 'bg-[#161616] text-neutral-400 border border-[#262626] hover:text-white hover:border-neutral-500 hover:scale-102'
+                "
+              >
+                {{ category.name }}
+              </button>
+            } @empty {
+              <h1 class="text-amber-50 text-center">Empty Data</h1>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 scroll-mt-36.5">
+      <div class="mb-8 flex items-center justify-between">
+        <p class="text-neutral-400">
+          عرض <span class="font-bold text-white">{{ allPosts.length }}</span> مقالات
+        </p>
+        <div class="flex items-center gap-2">
+          <div class="flex items-center bg-[#161616] border border-[#262626] rounded-xl p-1">
+            <button
+              (click)="toggleGride()"
+              [class]="showGrid ? 'bg-orange-500 text-white' : 'text-neutral-400 hover:text-white'"
+              class="p-2 rounded-lg transition-all duration-300"
+              title="عرض شبكي"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                ></path>
+              </svg></button
+            ><button
+              (click)="toggleGride()"
+              [class]="showGrid ? 'text-neutral-400 hover:text-white' : 'bg-orange-500 text-white'"
+              class="p-2 rounded-lg transition-all duration-300"
+              title="عرض قائمة"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      @if (showGrid) {
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          @for (post of filteredItems(); track $index) {
+            <app-card-horzental [Posts]="post"></app-card-horzental>
+          } @empty {
+            <h1 class="text-amber-50 text-center">Empty Data</h1>
+          }
+        </div>
+      } @else {
+        <div class="grid md:grid-cols-2 lg:grid-cols-1 gap-8">
+          @for (post of filteredItems(); track $index) {
+            <app-card-verctical [Posts]="post"></app-card-verctical>
+          } @empty {
+            <h1 class="text-amber-50 text-center">Empty Data</h1>
+          }
+        </div>
+      }
+
+      <div class="flex justify-center items-center gap-2 mt-12">
+        <button
+          disabled=""
+          class="p-3 rounded-xl border transition-all duration-300 bg-[#0a0a0a] border-[#262626] text-neutral-600 cursor-not-allowed"
+        >
+          <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            ></path>
+          </svg>
+        </button>
+        <div class="flex items-center gap-1">
+          <button
+            class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300 bg-linear-to-r from-orange-500 to-orange-600 text-white"
+          >
+            1</button
+          ><button
+            class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300 bg-[#161616] text-neutral-400 border border-[#262626] hover:border-orange-500/50 hover:text-white"
+          >
+            2</button
+          ><button
+            class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300 bg-[#161616] text-neutral-400 border border-[#262626] hover:border-orange-500/50 hover:text-white"
+          >
+            3</button
+          ><button
+            class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300 bg-[#161616] text-neutral-400 border border-[#262626] hover:border-orange-500/50 hover:text-white"
+          >
+            4</button
+          ><button
+            class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300 bg-[#161616] text-neutral-400 border border-[#262626] hover:border-orange-500/50 hover:text-white"
+          >
+            5
+          </button>
+        </div>
+        <button
+          class="p-3 rounded-xl border transition-all duration-300 bg-[#161616] border-[#262626] text-white hover:border-orange-500/50 hover:bg-[#1a1a1a]"
+        >
+          <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <p class="text-center text-neutral-500 mt-4 text-sm">صفحة 1 من 5</p>
+    </div>
+  </div>
+</main>

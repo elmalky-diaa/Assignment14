@@ -1,0 +1,68 @@
+<section class="relative min-h-[90vh] flex items-center overflow-hidden bg-[#0a0a0a] pt-20">
+  <div
+    class="absolute inset-0 bg-[linear-gradient(rgba(38,38,38,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(38,38,38,0.5)_1px,transparent_1px)] bg-size-[60px_60px]"
+  ></div>
+  <div class="absolute top-20 left-10 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl blob"></div>
+  <div
+    class="absolute bottom-20 right-10 w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl blob"
+    style="animation-delay: -2s"
+  ></div>
+  <div
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-orange-500/5 rounded-full blur-3xl"
+  ></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="text-center max-w-4xl mx-auto">
+      <app-title-main>
+        <span class="text-sm font-medium text-neutral-300">مرحباً بك في عدسة</span>
+      </app-title-main>
+      <h1
+        class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight"
+      >
+        اكتشف
+        <span class="bg-linear-to-br from-orange-500 to-amber-400 bg-clip-text text-transparent"
+          >فن</span
+        ><br />التصوير الفوتوغرافي
+      </h1>
+      <p class="text-xl md:text-2xl text-neutral-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+        انغمس في أسرار المحترفين ونصائح عملية لتطوير مهاراتك في التصوير.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
+        <a
+          class="flex justify-center items-center gap-2 text-white bg-warning box-border border border-transparent hover:bg-warning-strong focus:ring-4 focus:ring-warning-medium shadow-xs font-medium leading-5 rounded-full text-sm px-4 py-2.5 focus:outline-none"
+          routerLink="/blog"
+          ><span>استكشف المقالات</span
+          ><svg
+            class="w-5 h-5 group-hover:-translate-x-1 transition-transform rotate-180"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            ></path></svg></a
+        ><a
+          class="text-white box-border border border-default-medium hover:border-orange-500 hover:bg-orange-500/5 hover:text-orange focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-full text-sm px-4 py-2.5 focus:outline-none inline-flex items-center justify-center gap-2"
+          routerLink="/about"
+          ><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path></svg
+          ><span>اعرف المزيد</span></a
+        >
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+        @for (rank of ranks; track $index) {
+          <app-card-small [rank]="rank"></app-card-small>
+        } @empty {
+          <h1 class="text-amber-50">No Data</h1>
+        }
+      </div>
+    </div>
+  </div>
+</section>
