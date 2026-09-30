@@ -82,7 +82,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 scroll-mt-36.5">
       <div class="mb-8 flex items-center justify-between">
         <p class="text-neutral-400">
-          عرض <span class="font-bold text-white">{{ allPosts.length }}</span> مقالات
+          عرض <span class="font-bold text-white">{{ filteredItems().length }}</span> مقالات
         </p>
         <div class="flex items-center gap-2">
           <div class="flex items-center bg-[#161616] border border-[#262626] rounded-xl p-1">
@@ -120,7 +120,7 @@
       </div>
       @if (showGrid) {
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          @for (post of filteredItems(); track $index) {
+          @for (post of paginatedItems; track $index) {
             <app-card-horzental [Posts]="post"></app-card-horzental>
           } @empty {
             <h1 class="text-amber-50 text-center">Empty Data</h1>
@@ -128,7 +128,7 @@
         </div>
       } @else {
         <div class="grid md:grid-cols-2 lg:grid-cols-1 gap-8">
-          @for (post of filteredItems(); track $index) {
+          @for (post of paginatedItems; track $index) {
             <app-card-verctical [Posts]="post"></app-card-verctical>
           } @empty {
             <h1 class="text-amber-50 text-center">Empty Data</h1>
@@ -151,27 +151,19 @@
           </svg>
         </button>
         <div class="flex items-center gap-1">
-          <button
-            class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300 bg-linear-to-r from-orange-500 to-orange-600 text-white"
-          >
-            1</button
-          ><button
-            class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300 bg-[#161616] text-neutral-400 border border-[#262626] hover:border-orange-500/50 hover:text-white"
-          >
-            2</button
-          ><button
-            class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300 bg-[#161616] text-neutral-400 border border-[#262626] hover:border-orange-500/50 hover:text-white"
-          >
-            3</button
-          ><button
-            class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300 bg-[#161616] text-neutral-400 border border-[#262626] hover:border-orange-500/50 hover:text-white"
-          >
-            4</button
-          ><button
-            class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300 bg-[#161616] text-neutral-400 border border-[#262626] hover:border-orange-500/50 hover:text-white"
-          >
-            5
-          </button>
+          @for (page of pages; track page) {
+            <button
+              (click)="changePage(page)"
+              class="min-w-11 h-11 rounded-xl text-sm font-medium transition-all duration-300"
+              [class]="
+                currentPage === page
+                  ? 'bg-linear-to-r from-orange-500 to-orange-600 text-white'
+                  : 'bg-[#161616] text-neutral-400 border border-[#262626] hover:border-orange-500/50 hover:text-white'
+              "
+            >
+              {{ page }}
+            </button>
+          }
         </div>
         <button
           class="p-3 rounded-xl border transition-all duration-300 bg-[#161616] border-[#262626] text-white hover:border-orange-500/50 hover:bg-[#1a1a1a]"
@@ -186,7 +178,7 @@
           </svg>
         </button>
       </div>
-      <p class="text-center text-neutral-500 mt-4 text-sm">صفحة 1 من 5</p>
+      <p class="text-center text-neutral-500 mt-4 text-sm">صفحة 1 من {{ totalPages }}</p>
     </div>
   </div>
 </main>
